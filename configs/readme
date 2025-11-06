@@ -1,17 +1,22 @@
 to run samudra, gotta create software env and then execute some call
 
-create software env; I use micromamba for quick iteration (but we will get this working with hpc-native stuff soon)
+
+ENV:
+create software env; I use micromamba for quick iteration, but one can also use the system pytorch/modules
 
 for pm-gpu this worked,
 
 micromamba create -p /SOME/PATH/env  numpy=1 matplotlib-base xarray zarr=2 ipykernel cartopy xarrayutils dacite dask pandas cmocean scikit-learn ipywidgets requests aiohttp cftime einops nc-time-axis python=3.11 pytorch-gpu
-
 micromamba activate /SOME/PATH/env
 
+this also worked,
+module load pytorch
+pip install --user dask zarr xarray cftime dacite
+
+RUN:
 in root of repo, this runs:
 
 torchrun src/train.py --config configs/train_samudra_om4.yaml
 
 
 (pretty fast... note I had to reduce dims in configs because of mem issues)
-
