@@ -3,7 +3,7 @@ disk_mode: true
 pin_mem: true
 save_freq: 55 # Can set this to a lower number to save individual checkpoints more frequently
 epochs: 70
-batch_size: 4
+batch_size: 1 # reduced for memory (used to be 4)
 learning_rate: 0.0002
 scheduler: true
 loss: mse
@@ -34,21 +34,21 @@ experiment:
   sub_name: om4_samudra
   rand_seed: 5
   base_output_dir: train
-  data_dir: local/path/to/data-dir # FILL IN
+  data_dir: /pscratch/sd/m/mahf708/samudra_data/OM4/train.zarr # FILL IN
   network: samudra
   prognostic_vars_key: thermo_dynamic # thermo_dynamic or thermo
   boundary_vars_key: hfds_anom
 data:
-  data_path: data.zarr # FILL IN
-  data_means_path: means.zarr # FILL IN
-  data_stds_path: stds.zarr # FILL IN
+  data_path: /pscratch/sd/m/mahf708/samudra_data/OM4/train.zarr # FILL IN
+  data_means_path: /pscratch/sd/m/mahf708/samudra_data/OM4_means/means.zarr # FILL IN
+  data_stds_path: /pscratch/sd/m/mahf708/samudra_data/OM4_stds/stds.zarr # FILL IN
   time_delta: 5
   num_workers: 4
   hist: 1
 
 
 unet:
-  ch_width: [158, 200, 250, 300, 400] # This includes input channels
+  ch_width: [158, 128, 160, 192, 256] # This includes input channels - reduced for memory (used to be [158, 200, 250, 300, 400])
   n_out: 154
   dilation: [1, 2, 4, 8]
   n_layers: [1, 1, 1, 1]
